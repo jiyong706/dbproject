@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script>
-        window.onload = function() {
-            <?php
-            session_start();
-            if (isset($_SESSION['error'])) {
-                echo 'alert("' . $_SESSION['error'] . '");';
-                unset($_SESSION['error']);
-            }
-            ?>
-        };
+        // window.onload = function() {
+        //     <php
+        //     session_start();
+        //     if (isset($_SESSION['error'])) {
+        //         echo 'alert("' . $_SESSION['error'] . '");';
+        //         unset($_SESSION['error']);
+        //     }
+        //     ?>
+        // };
     </script>
 </head>
 <body>
@@ -24,7 +24,7 @@
             <div class="form">
                 <header>PillEat</header>
                 <p>로그인 하여 PillEat!</p>
-                <form action="login_process.php" method="POST">
+                <form action="idpw/login_process.php" method="POST">
                     <div class="field">
                         <input type="text" name="id" placeholder="id" required>
                     </div>
