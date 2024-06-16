@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt === false) {
             error_log('쿼리 준비에 실패했습니다: ' . htmlspecialchars($conn->error));
             $_SESSION['error'] = '쿼리 준비에 실패했습니다.';
-            header("Location: login.php");
+            header("Location: login/login.php");
             exit();
         }
 

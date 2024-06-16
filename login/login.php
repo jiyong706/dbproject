@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script>
         // window.onload = function() {
-        //     <php
+        //     <?php
         //     session_start();
         //     if (isset($_SESSION['error'])) {
         //         echo 'alert("' . $_SESSION['error'] . '");';
@@ -24,7 +24,7 @@
             <div class="form">
                 <header>PillEat</header>
                 <p>로그인 하여 PillEat!</p>
-                <form action="idpw/login_process.php" method="POST">
+                <form action="/login/login_process.php" method="POST">
                     <div class="field">
                         <input type="text" name="id" placeholder="id" required>
                     </div>
@@ -33,8 +33,8 @@
                         <i class="fas fa-eye"></i>
                     </div>
                     <div class="link">
-                        <a href="find_info.php">회원정보 찾기</a>
-                        <a href="signup_step1.php">회원가입</a>
+                        <!--<a href="find_info.php">회원정보 찾기</a> -->
+                        <a href="/register/signup_step1.php">회원가입</a>
                     </div>
                     <div class="field">
                         <input type="submit" value="로그인">
