@@ -1,14 +1,12 @@
-<!-- config.php -->
 <?php
-    $host = 'dsapoi881.duckdns.org/xe';
-    $user = 'c##test';
-    $pw = '00000000';
-    $conn = oci_connect($user, $pw, $host); //db 연결
+    $host = "azza.gwangju.ac.kr/orcl";
+    $user = 'dbuser201692';
+    $pw = 'ce1234';
 
-    // Check connection
-    //
-    if ($conn==null) {
-        die("데이터베이스에 연결이 실패하였습니다.");
-        return false;
+    // 데이터베이스 연결 체크
+    $conn = oci_connect($user, $pw, $host);
+    if (!$conn) {
+        $e = oci_error();
+        die("데이터베이스 연결에 실패하였습니다: " . $e['message']);
     }
 ?>
