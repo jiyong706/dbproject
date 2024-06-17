@@ -1,19 +1,20 @@
 <?php
+$root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
 session_start();
-include_once "config.php";
+include_once $root;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['id'])) {
         $id = $_POST['id'];
 
         // 중복된 ID(이메일) 확인
-        $check_sql = "SELECT id FROM users WHERE id = ?";
-        $check_stmt = $conn->prepare($check_sql);
-        $check_stmt->bind_param("s", $id);
-        $check_stmt->execute();
-        $check_stmt->store_result();
+        $sql = "SELECT user_userid FROM user_table WHERE user_userid = ':s'";
+        $stid = oci_parse($conn, $sql);
+        oci_bind_by_name(':s', $id);
+        $result = oci_execute($conn, $sql);
+        $row = oci_fetch_array($stid);
 
-        if ($check_stmt->num_rows > 0) {
+        if ($row != 0) {
             $_SESSION['error'] = '아이디가 중복되었습니다.';
             header("Location: signup_step1.php");
             exit();
@@ -51,11 +52,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container">
         <div class="form-box">
-            <h1>효율적으로 약관리를 시작해봐요</h1>
-            <p>먼저 사용하시는 아이디를 입력해주세요</p>
+            <h1>패널 관리를 위한 첫걸음 회원가입!</h1>
+            <p>먼저 사용할 아이디를 입력해주세요</p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 <div class="field">
-                    <input type="email" name="id" placeholder="아이디(이메일)" required>
+                    <input type="text" name="id" placeholder="아이디" required>
                 </div>
                 <div class="field">
                     <input type="submit" value="계속하기">

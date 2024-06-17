@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "config.php";
+include_once "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['password']) && !empty($_POST['confirm_password'])) {
