@@ -1,5 +1,7 @@
 <?php
-include_once "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
+// include_once "/2020//DB/config.php";
+include_once "C:/Users/315/Documents/GitHub/dbproject/DB/config.php";
+// include_once "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
