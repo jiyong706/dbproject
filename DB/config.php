@@ -1,5 +1,5 @@
 <?php
-    $host = "dsapoi881.duckdns.org/xe";
+    $host = "dsapoi881.duckdns.org:1522/xe";
     $user = 'c##test';
     $pw = '00000000';
 

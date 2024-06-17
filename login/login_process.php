@@ -1,5 +1,5 @@
 <?php
-include_once "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
+include_once "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

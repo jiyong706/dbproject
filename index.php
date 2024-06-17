@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>패널 메인페이지</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- <script>
+        window.onload = function() {
+            <php
+                if($_SESSION['id'] == null && $_SESSION['name'] == null){
+                    $_SESSION['error'] = "홈페이지에 접속하실려면 우선 로그인을 해아합니다.";
+                    header("Location : login.php");
+                }
+            ?>
+        };
+    </script> -->
 </head>
 <body>
     <header>
@@ -13,9 +23,11 @@
             <nav>
                 <ul>
                     <li><a href="#home">홈</a></li>
-                    <li><a href="#about">소개</a></li>
+                    <li><a href="/project/project.html">프로젝트 확인</a></li>
                     <li><a href="#services">서비스</a></li>
                     <li><a href="#contact">연락처</a></li>
+                    <li><a href="<php unset($_SESSION['id']); unset ($_SESSION['name'])?>">로그아웃</a></li>
+                    <li><a href="/login/login.php">로그인</a></li>
                 </ul>
             </nav>
         </div>
@@ -42,7 +54,7 @@
             <ul>
                 <?php
                 // 서비스 목록을 배열로 정의
-                $services = ["서비스 1", "서비스 2", "서비스 3"];
+                $services = ["조사", "프로젝트 개설", "패널 개설"];
                 // 배열을 루프하여 리스트 항목으로 출력
                 foreach ($services as $service) {
                     echo "<li>$service</li>";
@@ -65,7 +77,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; <?php echo date("Y"); ?> 패널 메인페이지. 모든 권리 보유.</p>
+            <p>&copy; <?php  date_default_timezone_set('Asia/seoul'); echo date("Y"); ?> 패널 메인페이지. 모든 권리 보유.</p>
         </div>
     </footer>
 </body>
