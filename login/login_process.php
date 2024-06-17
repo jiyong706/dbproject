@@ -1,7 +1,9 @@
 <?php
-// include_once "/2020//DB/config.php";
-include_once "C:/Users/315/Documents/GitHub/dbproject/DB/config.php";
-// include_once "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
+// 맥용 $root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
+// azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
+// 윈도우용 $root = "C:\\Users\\pc\\Documents\\GitHub\\dbproject\\DB\\config.php";
+
+include_once "$root";
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
