@@ -1,12 +1,8 @@
 <?php
-// 파일 경로 설정
-$root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php"; 
-// azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
-// 윈도우용 $root = "C:\\Users\\pc\\Documents\\GitHub\\dbproject\\DB\\config.php";
+include_once "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
+session_start();
 
-include_once $root;
-
-if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
+if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['id']) && !empty($_POST['pw'])) {
         $id = $_POST['id'];
         $password = $_POST['pw'];
@@ -17,7 +13,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt = oci_parse($conn, $sql);
 
         if ($stmt === false) {
-            $e = oci_error($conn);
+            $e = oci_error();
             error_log('쿼리 준비에 실패했습니다: ' . htmlspecialchars($e['message']));
             $_SESSION['error'] = '쿼리 준비에 실패했습니다.';
             header("Location: login.php");
@@ -64,7 +60,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
             header("Location: login.php");
             exit();
         }
-        
+
         // 리소스 해제
         oci_free_statement($stmt);
     } else {

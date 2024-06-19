@@ -1,17 +1,11 @@
 <?php
-if(!session_id()){
-    session_start();
-} else {
-    session_destroy();
-}
 // 맥용 
-$root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
+include_once "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
 // azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
 // 윈도우용 $root = "C:\\Users\\pc\\Documents\\GitHub\\dbproject\\DB\\config.php";
 // 기타 OS $root = "여기에 절대 경로 입력";
 
 session_start();
-include_once $root;
 
 if (isset($_SERVER["REQUEST_METHOD"]) !== null) {
     if (!empty($_POST['id'])) {
@@ -42,7 +36,11 @@ if (isset($_SERVER["REQUEST_METHOD"]) !== null) {
         $_SESSION['error'] = '아이디를 입력해주세요.';
         header("Location: signup_step1.php");
         exit();
-    }
+    } 
+} else {
+    $_SESSION['error'] = '전달받은 정보가 없습니다.';
+    echo "<script>alert('전달받은 정보가 없습니다. 다시시도해주세요')</script>";
+    header('Location: login.php');
 }
 ?>
 

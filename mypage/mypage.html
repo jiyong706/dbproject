@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dashboard</title>
+    <title>마이페이지</title>
     <link rel="stylesheet" href="mypage.css">
 </head>
 <body>
     <div class="dashboard">
         <header>
-            <h1>Welcome, <span id="username"></span></h1>
+            <h1>환영합니다, <span id="user_nickname"></span></h1>
             <a href="../login/logout.php" class="logout">Logout</a>
         </header>
         <div class="main-content">
             <div class="card">
                 <h2>Project Management</h2>
-                <a href="../project/pannel/project.html">프로젝트 관리t</a>
+                <a href="../project/pannel/project.html">프로젝트 관리</a>
             </div>
             <div class="card">
                 <h2>Panel Management</h2>
@@ -29,7 +29,7 @@
             fetch("mypage.php")
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById("username").textContent = data.username;
+                    document.getElementById("user_name").textContent = data.username;
                 });
         });
     </script>
