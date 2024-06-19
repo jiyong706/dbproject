@@ -1,28 +1,34 @@
 <?php
-require '../DB/config.php';
+include_once '..DB/config.php';
 session_start();
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    echo "<script>alert('먼저 로그인을 해주세요!')</script>";
     header("Location: ../login/login.php");
     exit();
 }
 
-$conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$e = oci_error();
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!$conn){
+    die("Connection failed: ". oci_error());
+    $_SESSION['error'] = "데이터베이스 오류입니다 :" + oci_error(); 
+    echo "<script>alert('데이터베이스 오류입니다! : ')</script>";
+} else if ($e !== null){
+    $_SESSION['error'] = "데이터베이스 오류입니다 :" + oci_error(); 
+    echo "<script>alert('데이터베이스 오류입니다! : ')</script>";
 }
 
-$username = $_SESSION['username'];
+$username = $_SESSION['user_name'];
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $stmt = $conn->prepare("SELECT username FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
-    $stmt->close();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $sql = "SELECT username FROM users WHERE username = ':s'";
+    oci_bind_by_name($conn, "s", $username);
     
+    $result = oci_execute($conn, $sql);
+    $user = oci_fetch_assoc($result[]);
+    
+    oci_close($conn);
     echo json_encode($user);
 }
 ?>
