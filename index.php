@@ -1,3 +1,10 @@
+<?php
+    if(isset($_SESSION['id']) && isset($_SESSION['name'])){
+    } else {
+        $_SESSION['error'] = "홈페이지에 접속하실려면 우선 로그인을 해아합니다.";
+        header("Location : /login/login.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -5,16 +12,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>패널 메인페이지</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- <script>
+    <script>
         window.onload = function() {
-            <php
-                if($_SESSION['id'] == null && $_SESSION['name'] == null){
+            <?php
+                if(isset($_SESSION['id']) && isset($_SESSION['name'])){
                     $_SESSION['error'] = "홈페이지에 접속하실려면 우선 로그인을 해아합니다.";
-                    header("Location : login.php");
+                    header("Location : /login/login.php");
+                } else {
+                    echo "<script>alert(\"이미 로그인 하셨습니다.\");
+                    location.href = \"index.php\";
+                    </script>";
                 }
             ?>
         };
-    </script> -->
+    </script>
 </head>
 <body>
     <header>
@@ -22,11 +33,11 @@
             <h1>패널 메인페이지</h1>
             <nav>
                 <ul>
-                    <li><a href="#home">홈</a></li>
-                    <li><a href="project/project.php">프로젝트 확인</a></li>
-                    <li><a href="#services">서비스</a></li>
-                    <li><a href="#contact">연락처</a></li>
-                    <li><a href="login/logout.php">로그아웃</a></li>
+                    <li><a href="/index.php">홈</a></li>
+                    <li><a href="/project/project.php">프로젝트 확인</a></li>
+                    <li><a href="/project/pannel/pannel_list.php">패널 확인</a></li>
+                    <li><a href="/mypage/mypage.php">마이페이지</a></li>
+                    <li><a href="/login/logout.php">로그아웃</a></li>
                 </ul>
             </nav>
         </div>

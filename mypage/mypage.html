@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마이페이지</title>
     <link rel="stylesheet" href="mypage.css">
+    <script>
+    </script>
 </head>
 <body>
     <div class="dashboard">
@@ -25,13 +27,13 @@
     </div>
     <script>
         // 사용자 이름을 페이지 로드 시 미리 채워넣기 위한 스크립트
-        document.addEventListener("DOMContentLoaded", function() {
-            fetch("mypage.php")
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("user_name").textContent = data.username;
-                });
-        });
+        // document.addEventListener("DOMContentLoaded", function() {
+           // fetch("mypage.php")
+               // .then(response => response.json())
+              //  .then(data => {
+            //        document.getElementById("user_name").textContent = data.username;
+          //      });
+        //});
     </script>
 </body>
 </html>

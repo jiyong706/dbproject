@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -33,9 +29,10 @@ session_start();
                     </div>
                     <div class="field">
                         <input type="password" name="pw" placeholder="pw" required>
+                        <i class="fas fa-eye"></i>
                     </div>
                     <div class="link">
-                        <a href="/register/signup_step1.php">회원가입</a>
+                        <a href='/register/signup_step1.php'>회원가입</a>
                     </div>
                     <div class="field">
                         <input type="submit" value="로그인">
