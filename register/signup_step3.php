@@ -1,13 +1,14 @@
 <?php
-// 맥용 $root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
+// 맥용 
+$root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
 // azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
 // 윈도우용 $root = "C:\\Users\\pc\\Documents\\GitHub\\dbproject\\DB\\config.php";
 // 기타 OS $root = "여기에 절대 경로 입력";
 
 include_once "$root";
 session_start();
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// @ : 무시
+if (@$_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['user_name']) && !empty($_POST['user_old'])) {
         $id = $_SESSION['id'];
         $password = $_SESSION['password'];
@@ -16,21 +17,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_email = $_POST['user_email'];
         $user_sex = $_POST['gender_type'];
 
-        $sql = "INSERT INTO user_table (user_id, user_userid, user_name, user_pw, user_email, user_sex, user_old, user_registerdate, user_lastlogin) VALUES (user_sql.NEXTVAL, 's', 's', 's', 's', 's', 's', 's', sysdate)";
-        $stmt = oci_parse($sql);
-        oci_bind_by_name("sssssss", $id, $user_name, $password, $user_email, 
-        $user_sex, date(Y/M/D));
+        $sql = "INSERT INTO user_table (user_id, user_userid, user_name, user_pw, user_email, user_sex, user_old, user_registerdate, user_lastlogin) VALUES (user_sql.NEXTVAL, s, s, s, s, s, s, s, sysdate)";
+        $stmt = oci_parse($conn, $sql);
+        oci_bind_by_name("sssssss", $id, $user_name, $password, $user_email, $user_sex, date("Y-M-D"));
         oci_execute($stmt);
+
+        oci_commit($conn);
+        oci_free_statement($stmt);
+        oci_close($conn);
 
         // 세션 변수 삭제
         unset($_SESSION['id']);
         unset($_SESSION['password']);
 
-        header("Location: signup_success.php");
+        header("Location : signup_success.php");
         exit();
     } else {
         $_SESSION['error'] = '모든 필드를 입력해주세요.';
-        header("Location: signup_step3.php");
+        header("Location : register/signup_step3.php");
         exit();
     }
 }

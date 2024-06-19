@@ -1,5 +1,6 @@
 <?php
-// 맥용 $root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
+// 맥용 
+$root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
 // azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
 // 윈도우용 $root = "C:\\Users\\pc\\Documents\\GitHub\\dbproject\\DB\\config.php";
 // 기타 OS $root = "여기에 절대 경로 입력";

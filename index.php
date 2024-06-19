@@ -23,11 +23,10 @@
             <nav>
                 <ul>
                     <li><a href="#home">홈</a></li>
-                    <li><a href="/project/project.html">프로젝트 확인</a></li>
+                    <li><a href="project/project.php">프로젝트 확인</a></li>
                     <li><a href="#services">서비스</a></li>
                     <li><a href="#contact">연락처</a></li>
-                    <li><a href="<php unset($_SESSION['id']); unset ($_SESSION['name'])?>">로그아웃</a></li>
-                    <li><a href="/login/login.php">로그인</a></li>
+                    <li><a href="login/logout.php">로그아웃</a></li>
                 </ul>
             </nav>
         </div>

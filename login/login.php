@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>패널 사용자 로그인</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="/login/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script>
         // window.onload = function() {
-        //     <?php
+        //     <php
         //     session_start();
         //     if (isset($_SESSION['error'])) {
         //         echo 'alert("' . $_SESSION['error'] . '");';
@@ -24,7 +24,7 @@
             <div class="form">
                 <header>Pannel</header>
                 <p>로그인 하여 패널서비스를 이용하세요!</p>
-                <form action="/login/login_process.php" method="POST">
+                <form action="login_process.php" method="POST">
                     <div class="field">
                         <input type="text" name="id" placeholder="id" required>
                     </div>
