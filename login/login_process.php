@@ -20,7 +20,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
             $e = oci_error($conn);
             error_log('쿼리 준비에 실패했습니다: ' . htmlspecialchars($e['message']));
             $_SESSION['error'] = '쿼리 준비에 실패했습니다.';
-            header("Location: login.php");
+            header("Location: /login/login.php");
             exit();
         }
 
@@ -34,7 +34,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
             $e = oci_error($stmt);
             error_log('쿼리 실행에 실패했습니다: ' . htmlspecialchars($e['message']));
             $_SESSION['error'] = '쿼리 실행에 실패했습니다.';
-            header("Location: login.php");
+            header("Location: /login/login.php");
             exit();
         }
 
@@ -42,31 +42,28 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
         $row = oci_fetch_array($stmt, OCI_ASSOC+OCI_RETURN_NULLS);
 
         if ($row != false) {
-            while(oci_fetch($stmt)){
-                $db_id = oci_result($stmt, 'USER_USERID');
-                $name = oci_result($stmt, 'USER_NAME');
-            }
-
+            $db_userid = $user_userid;
+            $name = $user_name;
             $db_password = "$user_pw";
 
             $db_password = password_hash($db_password, PASSWORD_BCRYPT);
 
             // 비밀번호 검증
             if (password_verify($password, $db_password)) {
-                $_SESSION['id'] = $db_id;
+                $_SESSION['userid'] = $db_userid;
                 $_SESSION['name'] = $name;
                 header("Location: /index.php");
                 exit();
             } else {
                 error_log('잘못된 비밀번호입니다.');
                 $_SESSION['error'] = '잘못된 비밀번호입니다.';
-                header("Location: login.php");
+                header("Location: /login/login.php");
                 exit();
             }
         } else {
             error_log('존재하지 않는 아이디입니다.');
             $_SESSION['error'] = '존재하지 않는 아이디입니다.';
-            header("Location: login.php");
+            header("Location: /login/login.php");
             exit();
         }
         
@@ -75,13 +72,13 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
     } else {
         error_log('아이디와 비밀번호를 입력해주세요.');
         $_SESSION['error'] = '아이디와 비밀번호를 입력해주세요.';
-        header("Location: login.php");
+        header("Location: /login/login.php");
         exit();
     }
 } else {
     error_log('잘못된 요청입니다.');
     $_SESSION['error'] = '잘못된 요청입니다.';
-    header("Location: login.php");
+    header("Location: /login/login.php");
     exit();
 }
 

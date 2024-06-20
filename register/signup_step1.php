@@ -1,9 +1,4 @@
 <?php
-if(!session_id()){
-    session_start();
-} else {
-    session_destroy();
-}
 // 맥용 
 $root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
 // azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";

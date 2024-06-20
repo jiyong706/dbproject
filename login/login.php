@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="/login/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script>
-        // window.onload = function() {
-        //     <php
-        //     session_start();
-        //     if (isset($_SESSION['error'])) {
-        //         echo 'alert("' . $_SESSION['error'] . '");';
-        //         unset($_SESSION['error']);
-        //     }
-        //     ?>
-        // };
+        window.onload = function() {
+            <?php
+            session_start();
+            if (isset($_SESSION['error'])) {
+                echo 'alert("' . $_SESSION['error'] . '");';
+                unset($_SESSION['error']);
+            }
+            ?>
+        };
     </script>
 </head>
 <body>

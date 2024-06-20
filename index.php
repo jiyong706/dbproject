@@ -8,10 +8,12 @@
     <script>
         window.onload = function() {
             <?php
-                if($_SESSION['id'] == null && $_SESSION['name'] == null){
-                    $_SESSION['error'] = "홈페이지에 접속하실려면 우선 로그인을 해아합니다.";
-                    header("Location : login.php");
-                }
+            if (!isset($_SESSION['id']) && !isset($_SESSION['name'])) {
+                $_SESSION['error'] = "홈페이지에 접속하실려면 우선 로그인을 해아합니다.";
+                echo 'alert("' . $_SESSION['error'] . '");';
+                header("Location: /login/login.php");
+                exit(); // Redirect 후 스크립트 종료
+            }
             ?>
         };
     </script>
@@ -26,7 +28,13 @@
                     <li><a href="project/project.php">프로젝트 확인</a></li>
                     <li><a href="#services">서비스</a></li>
                     <li><a href="#contact">연락처</a></li>
-                    <li><a href="login/logout.php">로그아웃</a></li>
+                    <?php
+                    if (isset($_SESSION['id']) && isset($_SESSION['name'])) {
+                        echo '<li><a href="login/logout.php">로그아웃</a></li>';
+                    } else {
+                        echo '<li><a href="login/login.php">로그인</a></li>';
+                    }
+                    ?>
                 </ul>
             </nav>
         </div>
@@ -73,5 +81,9 @@
             </address>
         </div>
     </section>
+
+    <footer>
+    </footer>
+
 </body>
 </html>
