@@ -1,62 +1,46 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-    echo "<script>alert('로그인해주세요'); location.replace('../../login/login.php');</script>";
+    echo "<script>alert('로그인해주세요'); location.replace('../login/login.php');</script>";
     exit();
 }
-require '../../DB/config.php';
 
-$username = $_SESSION['username'];
+include_once '../DB/data_select_project.php';
 
-// 유저 아이디 가져오기
-$user_sql = "SELECT user_id FROM user WHERE id = :username";
-$user_stmt = $conn->prepare($user_sql);
-$user_stmt->bindParam(':username', $username);
-$user_stmt->execute();
-$user = $user_stmt->fetch(PDO::FETCH_ASSOC);
-$user_id = $user['user_id'];
-
-$sql = "SELECT project_id, project_name, TO_CHAR(project_CreateDate, 'YYYY-MM-DD HH24:MI:SS') AS project_CreateDate FROM project WHERE user_id = :user_id";
-$stmt = $conn->prepare($sql);
-$stmt->bindParam(':user_id', $user_id);
-$stmt->execute();
-$projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$user_id = $_SESSION['user_id'];
+$projects = getProjectList($user_id);
 ?>
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로젝트 목록</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="project.css">
 </head>
 <body>
-    <div class="container">
-        <h1>프로젝트 목록</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>프로젝트 이름</th>
-                    <th>생성일</th>
-                    <th>관리</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($projects as $project): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($project['project_name']); ?></td>
-                        <td><?php echo htmlspecialchars($project['project_CreateDate']); ?></td>
-                        <td>
-                            <a href="view_project.php?id=<?php echo $project['project_id']; ?>">보기</a>
-                            <a href="edit_project.php?id=<?php echo $project['project_id']; ?>">수정</a>
-                            <a href="delete_project.php?id=<?php echo $project['project_id']; ?>" onclick="return confirm('정말로 삭제하시겠습니까?');">삭제</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <a href="create_project.php">새 프로젝트 만들기</a>
+    <div class="create">
+        <button onclick="location.href='create_project.php'">프로젝트 생성</button>    
+    </div>
+    <div class="project_list">
+        <h2>프로젝트 목록</h2>
+        <ul>
+            <?php
+            foreach ($projects as $project) {
+                echo "<li>";
+                echo "프로젝트 이름: " . htmlspecialchars($project['PROJECT_NAME']) . "<br>";
+                echo "프로젝트 설명: " . htmlspecialchars($project['PROJECT_INFO']) . "<br>";
+                echo "생성일: " . htmlspecialchars($project['PROJECT_CREATEDATE']) . "<br>";
+                echo "업데이트일: " . htmlspecialchars($project['PROJECT_UPDATE']) . "<br>";
+                echo "<a href='project_view.php?project_id=" . $project['PROJECT_ID'] . "'>보기</a> ";
+                echo "<a href='project_edit.php?project_id=" . $project['PROJECT_ID'] . "'>수정</a> ";
+                echo "<a href='project_delete.php?project_id=" . $project['PROJECT_ID'] . "' onclick=\"return confirm('정말로 이 프로젝트를 삭제하시겠습니까?');\">삭제</a>";
+                echo "</li>";
+            }
+            ?>
+        </ul>
     </div>
 </body>
 </html>
+
