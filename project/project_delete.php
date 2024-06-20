@@ -4,27 +4,43 @@ if (!isset($_SESSION['username'])) {
     echo "<script>alert('로그인해주세요'); location.replace('../../login/login.php');</script>";
     exit();
 }
-require '../../DB/config.php';
+
+// Oracle 데이터베이스 연결
+$conn = oci_connect('c##test', '00000000', 'dsapoi881.duckdns.org:1522/xe');
+
+if (!$conn) {
+    $e = oci_error();
+    echo "<script>alert('데이터베이스 연결에 실패했습니다.');</script>";
+    exit();
+}
 
 $id = intval($_GET['id']);
 $username = $_SESSION['username'];
 
 // 유저 아이디 가져오기
 $user_sql = "SELECT user_id FROM user WHERE id = :username";
-$user_stmt = $conn->prepare($user_sql);
-$user_stmt->bindParam(':username', $username);
-$user_stmt->execute();
-$user = $user_stmt->fetch(PDO::FETCH_ASSOC);
-$user_id = $user['user_id'];
+$user_stmt = oci_parse($conn, $user_sql);
+oci_bind_by_name($user_stmt, ':username', $username);
+oci_execute($user_stmt);
 
+$user = oci_fetch_assoc($user_stmt);
+$user_id = $user['USER_ID'];
+
+// 프로젝트 삭제
 $sql = "DELETE FROM project WHERE project_id = :id AND user_id = :user_id";
-$stmt = $conn->prepare($sql);
-$stmt->bindParam(':id', $id);
-$stmt->bindParam(':user_id', $user_id);
+$stmt = oci_parse($conn, $sql);
+oci_bind_by_name($stmt, ':id', $id);
+oci_bind_by_name($stmt, ':user_id', $user_id);
 
-if ($stmt->execute()) {
+if (oci_execute($stmt)) {
     echo "<script>alert('프로젝트가 성공적으로 삭제되었습니다.'); location.replace('project_list.php');</script>";
 } else {
-    echo "프로젝트 삭제에 실패했습니다.";
+    $e = oci_error($stmt);
+    echo "<script>alert('프로젝트 삭제에 실패했습니다. 오류: " . htmlspecialchars($e['message']) . "');</script>";
 }
+
+// Oracle 연결 종료
+oci_free_statement($user_stmt);
+oci_free_statement($stmt);
+oci_close($conn);
 ?>
