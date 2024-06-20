@@ -73,11 +73,5 @@
             </address>
         </div>
     </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; <?php  date_default_timezone_set('Asia/seoul'); echo date("Y"); ?> 패널 메인페이지. 모든 권리 보유.</p>
-        </div>
-    </footer>
 </body>
 </html>

@@ -21,13 +21,19 @@
 
 
             if($conn == true ){
-                echo "<script>alert('데이터베이스가 연결되었습니다.')</script>";
-                $sql = "select project_id, project_name, project_info, project_createdate, project_update from project_table where user_id = :1";
+                $sql = "select project_id, project_name, project_info, project_createdate, project_update from project_table where user_id = (select user_id from user_table where user_userid = :id)";
                 $stid = oci_parse($conn, $sql);
 
-                // 유저 아이디 일련번호 기록(세션값전달)
-                $id = $_SESSION['id'];
-                oci_bind_by_name($stid, ":1", $id);
+                // 유저 아이디 기록(세션값전달)
+                if($_SESSION['id'] == null){
+                    $id = $_SESSION['id'];
+                    echo "<script>alert(\"로그인 해주세요\");</script>";
+                    header("Location: /login/login.php");
+
+                }
+
+
+                oci_bind_by_name($stid, ":id", $id);
                 
                 oci_execute($stid);
 
