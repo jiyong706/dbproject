@@ -13,7 +13,7 @@
     <div class="project_list">
         <?php
             // 파일 경로 설정
-            $root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php"; 
+            $root = "/Users/baggyeonghwan/dbproject/DB/pannel/data_select_pannel.php"; 
             // azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
             // 윈도우용 $root = "C:\\Users\\pc\\Documents\\GitHub\\dbproject\\DB\\config.php";
             
@@ -26,7 +26,7 @@
                 $stid = oci_parse($conn, $sql);
 
                 // 유저 아이디 일련번호 기록(세션값전달)
-                $id = '1';
+                $id = $_SESSION['id'];
                 oci_bind_by_name($stid, ":1", $id);
                 
                 oci_execute($stid);

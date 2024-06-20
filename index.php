@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>패널 메인페이지</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- <script>
+    <script>
         window.onload = function() {
-            <php
+            <?php
                 if($_SESSION['id'] == null && $_SESSION['name'] == null){
                     $_SESSION['error'] = "홈페이지에 접속하실려면 우선 로그인을 해아합니다.";
                     header("Location : login.php");
                 }
             ?>
         };
-    </script> -->
+    </script>
 </head>
 <body>
     <header>
