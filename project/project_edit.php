@@ -1,76 +1,67 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
-    echo "<script>alert('로그인해주세요'); location.replace('../../login/login.php');</script>";
-    exit();
-}
-require '../../DB/config.php';
-
-$id = intval($_GET['id']);
-$username = $_SESSION['username'];
-
-// 유저 아이디 가져오기
-$user_sql = "SELECT user_id FROM user WHERE id = :username";
-$user_stmt = $conn->prepare($user_sql);
-$user_stmt->bindParam(':username', $username);
-$user_stmt->execute();
-$user = $user_stmt->fetch(PDO::FETCH_ASSOC);
-$user_id = $user['user_id'];
-
-$sql = "SELECT project_name, project_info FROM project WHERE project_id = :id AND user_id = :user_id";
-$stmt = $conn->prepare($sql);
-$stmt->bindParam(':id', $id);
-$stmt->bindParam(':user_id', $user_id);
-$stmt->execute();
-$project = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$project) {
-    echo "프로젝트를 찾을 수 없습니다.";
+if (!isset($_SESSION['user_nickname'])) {
+    echo "<script>alert('로그인해주세요'); location.replace('../login/login.php');</script>";
     exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $project_name = $_POST['project_name'];
-    $project_info = $_POST['project_info'];
+include_once '../user/config.php';
+include_once '../DB/data_select_project.php';
 
-    $update_sql = "UPDATE project SET project_name = :project_name, project_info = :project_info, project_update = SYSDATE WHERE project_id = :id AND user_id = :user_id";
-    $update_stmt = $conn->prepare($update_sql);
-    $update_stmt->bindParam(':project_name', $project_name);
-    $update_stmt->bindParam(':project_info', $project_info);
-    $update_stmt->bindParam(':id', $id);
-    $update_stmt->bindParam(':user_id', $user_id);
-    
-    if ($update_stmt->execute()) {
-        echo "<script>alert('프로젝트가 성공적으로 수정되었습니다.'); location.replace('view_project.php?id={$id}');</script>";
+if (isset($_GET['project_id'])) {
+    $project_id = $_GET['project_id'];
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $project_name = $_POST['project_name'];
+        $project_info = $_POST['project_info'];
+
+        $sql = "UPDATE project SET project_name = :project_name, project_info = :project_info, project_update = SYSDATE WHERE project_id = :project_id";
+        $stid = oci_parse($conn, $sql);
+        oci_bind_by_name($stid, ':project_id', $project_id);
+        oci_bind_by_name($stid, ':project_name', $project_name);
+        oci_bind_by_name($stid, ':project_info', $project_info);
+
+        if (oci_execute($stid)) {
+            echo "<script>alert('프로젝트가 수정되었습니다.'); location.replace('project_list.php');</script>";
+        } else {
+            $e = oci_error($stid);
+            echo "프로젝트 수정 오류: " . $e['message'];
+        }
+
+        oci_free_statement($stid);
+        oci_close($conn);
     } else {
-        echo "프로젝트 수정에 실패했습니다.";
+        $project = getProjectDetails($project_id);
     }
+} else {
+    echo "<script>alert('유효하지 않은 요청입니다.'); location.replace('project_list.php');</script>";
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로젝트 수정</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="project.css">
 </head>
 <body>
     <div class="container">
-        <h1>프로젝트 수정</h1>
-        <form method="post">
+        <div class="form-header">
+            <h1>프로젝트 수정</h1>
+        </div>
+        <form method="post" action="project_edit.php?project_id=<?php echo $project_id; ?>">
             <div class="form-group">
                 <label for="project_name">프로젝트 이름:</label>
-                <input type="text" id="project_name" name="project_name" value="<?php echo htmlspecialchars($project['project_name']); ?>" required>
+                <input type="text" id="project_name" name="project_name" value="<?php echo htmlspecialchars($project['PROJECT_NAME']); ?>" required>
             </div>
             <div class="form-group">
-                <label for="project_info">프로젝트 정보:</label>
-                <textarea id="project_info" name="project_info" required><?php echo htmlspecialchars($project['project_info']); ?></textarea>
+                <label for="project_info">프로젝트 설명:</label>
+                <textarea id="project_info" name="project_info" required><?php echo htmlspecialchars($project['PROJECT_INFO']); ?></textarea>
             </div>
             <button type="submit">프로젝트 수정</button>
         </form>
-        <a href="view_project.php?id=<?php echo $id; ?>">취소</a>
     </div>
 </body>
 </html>
