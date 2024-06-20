@@ -1,6 +1,6 @@
 <?php
     include_once "/Users/baggyeonghwan/dbproject/DB/config.php";
-    $stid = oci_parse($conn, "SELECT * FROM project_table where user_userid = :d");
+    $stid = oci_parse($conn, "SELECT * FROM project_table where project_id = :d");
 
     oci_bind_by_name($stid, ":d", $_POST['id']);
     oci_execute($stid);
@@ -13,11 +13,12 @@
     // }
     
     while(oci_fetch($stid)){
-        $user_email = oci_result($stid, 'USER_EMAIL');
-        $user_old = oci_result($stid, 'USER_OLD');
-        $user_name = oci_result($stid, 'USER_NAME');
-        $user_userid = oci_result($stid, 'USER_USERID');
-        $user_pw = oci_result($stid, 'USER_PW');
+        $project_id = oci_result($stid, 'PROJECT_ID');
+        $user_id = oci_result($stid, 'USER_ID');
+        $project_name = oci_result($stid, 'PROJECT_NAME');
+        $project_info = oci_result($stid, 'PROJECT_INFO');
+        $project_createdate = oci_result($stid, 'PROJECT_CREATEDATE');
+        $project_updatedate = oci_result($stid, 'PROJECT_UPDATE');
     }
     
     oci_close($conn);

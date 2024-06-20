@@ -56,8 +56,8 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
             // 비밀번호 검증
             if (password_verify($password, $db_password)) {
-                $_SESSION['USER_NAME'] = $db_id;
-                $_SESSION['USER_NICKNAME'] = $name;
+                $_SESSION['id'] = $db_id;
+                $_SESSION['name'] = $name;
                 header("Location: /index.php");
                 exit();
             } else {

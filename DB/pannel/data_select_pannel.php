@@ -1,5 +1,5 @@
 <?php
-    include_once "/Users/baggyeonghwan/dbproject//DB/config.php";
+    include_once "/Users/baggyeonghwan/dbproject/DB/config.php";
     $stid = oci_parse($conn, "SELECT * FROM pannel_table where project_id = :d");
 
     oci_bind_by_name($stid, ":d", $_POST['id']);
@@ -13,12 +13,14 @@
     // }
     
     while(oci_fetch($stid)){
-        $pannel_id = oci_result($stid, 'USER_EMAIL');
-        $project_id = oci_result($stid, 'USER_OLD');
-        $pannel_standard = oci_result($stid, 'USER_NAME');
-        $pannel_info = oci_result($stid, 'USER_USERID');
-        $pannel_date = oci_result($stid, 'USER_PW');
-        $pannel_createdate = oci_result($stid, 'USER_PW');
+        $pannel_id = oci_result($stid, 'PANNEL_ID');
+        $project_id = oci_result($stid, 'PROJECT_ID');
+        $pannel_name = oci_result($stid, 'PANNEL_NAME');
+        $pannel_standard = oci_result($stid, 'PANNEL_STANDARD');
+        $pannel_info = oci_result($stid, 'PANNEL_INFO');
+        $pannel_createdate = oci_result($stid, 'PANNEL_CREATEDATE');
+        // sysdate
+        $pannel_updatedate = oci_result($stid, 'PANNEL_UPDATEDATE');
     }
     
     oci_close($conn);

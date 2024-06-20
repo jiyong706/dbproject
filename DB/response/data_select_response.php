@@ -13,11 +13,11 @@
     // }
     
     while(oci_fetch($stid)){
-        $user_email = oci_result($stid, 'USER_EMAIL');
-        $user_old = oci_result($stid, 'USER_OLD');
-        $user_name = oci_result($stid, 'USER_NAME');
-        $user_userid = oci_result($stid, 'USER_USERID');
-        $user_pw = oci_result($stid, 'USER_PW');
+        $resp_id = oci_result($stid, 'RESP_ID');
+        $user_id = oci_result($stid, 'USER_ID');
+        $question_id = oci_result($stid, 'QUSTION_ID');
+        $resp_text = oci_result($stid, 'RESP_TEXT');
+        $resp_date = oci_result($stid, 'RESP_DATE');
     }
     
     oci_close($conn);

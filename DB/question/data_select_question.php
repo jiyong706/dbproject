@@ -1,6 +1,6 @@
 <?php
     include_once "/Users/baggyeonghwan/dbproject/DB/config.php";
-    $stid = oci_parse($conn, "SELECT * FROM user_table where user_userid = :d");
+    $stid = oci_parse($conn, "SELECT * FROM question_table where question_id = :d");
 
     oci_bind_by_name($stid, ":d", $_POST['id']);
     oci_execute($stid);
@@ -13,11 +13,12 @@
     // }
     
     while(oci_fetch($stid)){
-        $user_email = oci_result($stid, 'USER_EMAIL');
-        $user_old = oci_result($stid, 'USER_OLD');
-        $user_name = oci_result($stid, 'USER_NAME');
-        $user_userid = oci_result($stid, 'USER_USERID');
-        $user_pw = oci_result($stid, 'USER_PW');
+        $question_id = oci_result($stid, 'QUESTION_ID');
+        $pannel_id = oci_result($stid, 'PANNEL_ID');
+        $question_text = oci_result($stid, 'QUESTION_TEXT');
+        $question_type = oci_result($stid, 'QUESTION_TYPE');
+        $question_createdate = oci_result($stid, 'QUESTION_CREATEDATE');
+        $question_updatedate = oci_result($stid, 'QUESTION_UPDATEDATE');
     }
     
     oci_close($conn);
