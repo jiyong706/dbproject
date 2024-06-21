@@ -5,11 +5,30 @@ if (!isset($_SESSION['user_nickname'])) {
     exit();
 }
 
+include_once '../user/config.php';
 include_once '../DB/data_select_project.php';
 
 if (isset($_GET['project_id'])) {
     $project_id = $_GET['project_id'];
-    $project = getProjectDetails($project_id);
+    $user_id = $_SESSION['user_nickname']; // assuming user_nickname is the user ID
+
+    $sql = "SELECT project_id, project_name, project_info, project_createdate, project_update 
+            FROM project_table 
+            WHERE project_id = :project_id AND user_id = (SELECT user_id FROM user_table WHERE user_userid = :user_id)";
+    $stid = oci_parse($conn, $sql);
+    oci_bind_by_name($stid, ':project_id', $project_id);
+    oci_bind_by_name($stid, ':user_id', $user_id);
+    oci_execute($stid);
+    
+    $project = oci_fetch_assoc($stid);
+    
+    if (!$project) {
+        echo "<script>alert('프로젝트를 찾을 수 없습니다.'); location.replace('project_list.php');</script>";
+        exit();
+    }
+
+    oci_free_statement($stid);
+    oci_close($conn);
 } else {
     echo "<script>alert('유효하지 않은 요청입니다.'); location.replace('project_list.php');</script>";
     exit();
@@ -35,4 +54,6 @@ if (isset($_GET['project_id'])) {
     </div>
 </body>
 </html>
+
+
 
