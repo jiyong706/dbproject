@@ -1,4 +1,4 @@
-<?php
+<<?php
 session_start();
 if (!isset($_SESSION['user_nickname'])) {
     echo "<script>alert('로그인해주세요'); location.replace('../login/login.php');</script>";
@@ -11,12 +11,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['project_id'])) {
     $project_id = $_GET['project_id'];
     $project_name = $_POST['project_name'];
     $project_info = $_POST['project_info'];
+    $user_id = $_SESSION['user_nickname']; // assuming user_nickname is the user ID
 
-    $sql = "UPDATE project SET project_name = :project_name, project_info = :project_info, project_update = SYSDATE WHERE project_id = :project_id";
+    $sql = "UPDATE project_table 
+            SET project_name = :project_name, project_info = :project_info, project_update = SYSDATE 
+            WHERE project_id = :project_id 
+            AND user_id = (SELECT user_id FROM user_table WHERE user_userid = :user_id)";
     $stid = oci_parse($conn, $sql);
     oci_bind_by_name($stid, ':project_id', $project_id);
     oci_bind_by_name($stid, ':project_name', $project_name);
     oci_bind_by_name($stid, ':project_info', $project_info);
+    oci_bind_by_name($stid, ':user_id', $user_id);
 
     if (oci_execute($stid)) {
         echo "<script>alert('프로젝트가 수정되었습니다.'); location.replace('project_list.php');</script>";
@@ -27,8 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['project_id'])) {
 
     oci_free_statement($stid);
     oci_close($conn);
-} elseif (!isset($_GET['project_id'])) {
+} else {
     echo "<script>alert('유효하지 않은 요청입니다.'); location.replace('project_list.php');</script>";
+    exit();
 }
 ?>
 
@@ -45,18 +51,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['project_id'])) {
         <div class="form-header">
             <h1>프로젝트 수정</h1>
         </div>
-        <form method="post" action="project_edit.php?project_id=<?php echo isset($_GET['project_id']) ? $_GET['project_id'] : ''; ?>">
+        <form method="post" action="project_edit.php?project_id=<?php echo $project_id; ?>">
             <div class="form-group">
                 <label for="project_name">프로젝트 이름:</label>
-                <input type="text" id="project_name" name="project_name" value="" required>
+                <input type="text" id="project_name" name="project_name" value="<?php echo htmlspecialchars($project['PROJECT_NAME']); ?>" required>
             </div>
             <div class="form-group">
                 <label for="project_info">프로젝트 설명:</label>
-                <textarea id="project_info" name="project_info" required></textarea>
+                <textarea id="project_info" name="project_info" required><?php echo htmlspecialchars($project['PROJECT_INFO']); ?></textarea>
             </div>
             <button type="submit">프로젝트 수정</button>
         </form>
     </div>
 </body>
 </html>
+
 
