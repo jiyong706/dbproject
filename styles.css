@@ -1,63 +1,119 @@
-* {
+body {
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    background-color: #f4f4f4;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+header {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
 }
 
 .container {
     width: 80%;
     margin: 0 auto;
+    overflow: hidden;
 }
 
-header {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
+.logo h1 {
+    float: left;
+    color: #333;
+    text-transform: uppercase;
+    margin: 10px 0;
 }
 
-header h1 {
-    margin-bottom: 1rem;
+nav {
+    float: right;
 }
 
-header nav ul {
-    list-style: none;
+nav ul {
+    margin: 0;
     padding: 0;
+    list-style: none;
 }
 
-header nav ul li {
+nav ul li {
     display: inline;
-    margin-right: 1rem;
+    margin-left: 10px;
 }
 
-header nav ul li a {
-    color: #fff;
+nav ul li a {
     text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+}
+
+.hero {
+    background: url('background.jpg') no-repeat center center/cover;
+    height: 600px;
+    position: relative;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-text {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero-text h1 {
+    margin: 0;
+    font-size: 48px;
+}
+
+.hero-text p {
+    margin: 10px 0;
+}
+
+.hero-text button {
+    background: #11264f;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    color: #fff;
 }
 
 section {
-    padding: 2rem 0;
+    padding: 20px 0;
 }
 
-section#home {
-    background: #f4f4f4;
+section h2 {
     text-align: center;
+    color: #333;
 }
 
-section#about, section#services, section#contact {
+section p {
     text-align: center;
+    color: #666;
+}
+
+section ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+section ul li {
+    margin: 0 10px;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 footer {
     background: #333;
     color: #fff;
     text-align: center;
-    padding: 1rem 0;
+    padding: 10px 0;
 }
 
 footer p {

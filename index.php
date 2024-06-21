@@ -5,72 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>패널 메인페이지</title>
     <link rel="stylesheet" href="styles.css">
-    <script>
-        window.onload = function() {
-            <?php
-            if (!isset($_SESSION['id']) && !isset($_SESSION['name'])) {
-                $_SESSION['error'] = "홈페이지에 접속하실려면 우선 로그인을 해아합니다.";
-                echo 'alert("' . $_SESSION['error'] . '");';
-                header("Location: /login/login.php");
-                exit(); // Redirect 후 스크립트 종료
-            }
-            ?>
-        };
-    </script>
 </head>
 <body>
+    <?php
+        session_start();
+        $is_logged_in = isset($_SESSION['username']);
+    ?>
     <header>
         <div class="container">
-            <h1>패널 메인페이지</h1>
+            <div class="logo">
+                <h1>패널</h1>
+            </div>
             <nav>
                 <ul>
-                    <li><a href="#home">홈</a></li>
-                    <li><a href="project/project.php">프로젝트 확인</a></li>
+                    <li><a href="#">홈</a></li>
+                    <li><a href="/project/project.php">프로젝트</a></li>
                     <li><a href="#services">서비스</a></li>
                     <li><a href="#contact">연락처</a></li>
-                    <?php
-                    if (isset($_SESSION['id']) && isset($_SESSION['name'])) {
-                        echo '<li><a href="login/logout.php">로그아웃</a></li>';
-                    } else {
-                        echo '<li><a href="login/login.php">로그인</a></li>';
-                    }
-                    ?>
+                    <li>
+                        <?php if ($is_logged_in): ?>
+                            <a href="logout.php">로그아웃</a>
+                        <?php else: ?>
+                            <a href="login.php">로그인</a>
+                        <?php endif; ?>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
-
-    <section id="home">
-        <div class="container">
-            <h2>환영합니다!</h2>
-            <p>패널 메인페이지에 오신 것을 환영합니다. 여기서 다양한 정보를 확인하실 수 있습니다.</p>
+    
+    <div class="hero">
+        <div class="hero-text">
+            <h1>CONNECT EVERYTHING</h1>
+            <p>새로운 연결, 더 나은 세상, 패널</p>
+            <p>패널은 다양한 사람들과 조사를 통해 소통하는 플랫폼입니다.</p>
+            <button onclick="scrollToContent()">더 알아보기</button>
         </div>
-    </section>
-
-    <section id="about">
-        <div class="container">
-            <h2>소개</h2>
-            <p>우리 패널에 대해 더 알고 싶으신가요? 여기에 간단한 소개가 있습니다.</p>
-        </div>
-    </section>
-
+    </div>
+    
+    <hr>
     <section id="services">
         <div class="container">
             <h2>서비스</h2>
             <p>다양한 서비스를 제공합니다. 자세한 내용은 아래를 참조하세요.</p>
             <ul>
-                <?php
-                // 서비스 목록을 배열로 정의
-                $services = ["조사", "프로젝트 개설", "패널 개설"];
-                // 배열을 루프하여 리스트 항목으로 출력
-                foreach ($services as $service) {
-                    echo "<li>$service</li>";
-                }
-                ?>
+                <li>조사</li>
+                <li>프로젝트 개설</li>
+                <li>패널 개설</li>
             </ul>
         </div>
     </section>
-
+    
+    <hr>
     <section id="contact">
         <div class="container">
             <h2>연락처</h2>
@@ -85,5 +71,6 @@
     <footer>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
