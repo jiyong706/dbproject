@@ -49,6 +49,28 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
             // 비밀번호 검증
             if (password_verify($password, $db_password)) {
+                $update_sql = "UPDATE user_table SET user_lastlogin = SYSDATE WHERE user_userid = :id";
+                $update_stmt = oci_parse($conn, $update_sql);
+
+                if ($update_stmt === false) {
+                    $e = oci_error($conn);
+                    error_log('업데이트 쿼리 준비에 실패했습니다: ' . htmlspecialchars($e['message']));
+                    echo "<script>alert('업데이트 쿼리 준비에 실패했습니다.'); window.location.href = '/login/login.php';</script>";
+                    exit();
+                }
+
+                // 바인드 변수 할당
+                oci_bind_by_name($update_stmt, ':id', $db_userid);
+
+                // 쿼리 실행
+                $update_result = oci_execute($update_stmt);
+
+                if ($update_result === false) {
+                    $e = oci_error($update_stmt);
+                    error_log('업데이트 쿼리 실행에 실패했습니다: ' . htmlspecialchars($e['message']));
+                    echo "<script>alert('업데이트 쿼리 실행에 실패했습니다.'); window.location.href = '/login/login.php';</script>";
+                    exit();
+                }
                 $_SESSION['user_id'] = $db_userid;
                 $_SESSION['user_name'] = $name;
                 echo "<script>alert('로그인 완료.'); window.location.href = '/index.php';</script>";

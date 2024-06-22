@@ -30,12 +30,10 @@ echo $_SESSION['user_id'];
             <div class="logo">
                 <h1>패널</h1>
             </div>
-            <nav>
+            <nav class="selection">
                 <ul>
                     <li><a href="#">홈</a></li>
                     <li><a href="/project/project.php">프로젝트</a></li>
-                    <li><a href="#services">서비스</a></li>
-                    <li><a href="#contact">연락처</a></li>
                     <li>
                         <?php if ($is_logged_in): ?>
                             <a href="logout.php">로그아웃</a>
@@ -57,30 +55,17 @@ echo $_SESSION['user_id'];
         </div>
     </div>
     
-    <hr>
     <section id="services">
         <div class="container">
             <h2>서비스</h2>
             <p>다양한 서비스를 제공합니다. 자세한 내용은 아래를 참조하세요.</p>
             <ul>
                 <li>조사</li>
-                <li>프로젝트 개설</li>
-                <li>패널 개설</li>
+                <li>프로젝트 관리 및 개설</li>
+                <li>패널 관리 및 개설</li>
             </ul>
         </div>
-    </section>
-    
-    <hr>
-    <section id="contact">
-        <div class="container">
-            <h2>연락처</h2>
-            <p>문의사항이 있으시면 아래 정보를 통해 연락주세요.</p>
-            <address>
-                <p>Email: example@example.com</p>
-                <p>Phone: 010-1234-5678</p>
-            </address>
-        </div>
-    </section>
+    </section>    
 
     <footer>
     </footer>
