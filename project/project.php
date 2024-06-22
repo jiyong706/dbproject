@@ -38,7 +38,7 @@
 
             $id = $_SESSION['id'];
             if ($conn) {
-                $sql = "SELECT project_id, project_name, project_info, project_createdate, project_update FROM project WHERE user_id = (SELECT user_id FROM user WHERE id = :id)";
+                $sql = "SELECT project_id, project_name, project_info, project_createdate, project_updatedate FROM project_table WHERE user_id = (SELECT user_id FROM user_table WHERE id = :id)";
                 $stid = oci_parse($conn, $sql);
                 oci_bind_by_name($stid, ":id", $id);
                 oci_execute($stid);
@@ -48,7 +48,7 @@
                     echo "<h2>" . htmlspecialchars($row['PROJECT_NAME'], ENT_QUOTES, 'UTF-8') . "</h2>";
                     echo "<p>" . htmlspecialchars($row['PROJECT_INFO'], ENT_QUOTES, 'UTF-8') . "</p>";
                     echo "<p>생성일: " . htmlspecialchars($row['PROJECT_CREATEDATE'], ENT_QUOTES, 'UTF-8') . "</p>";
-                    echo "<p>업데이트: " . htmlspecialchars($row['PROJECT_UPDATE'], ENT_QUOTES, 'UTF-8') . "</p>";
+                    echo "<p>업데이트: " . htmlspecialchars($row['PROJECT_UPDATEDATE'], ENT_QUOTES, 'UTF-8') . "</p>";
                     echo "</div>";
                 }
 
@@ -63,3 +63,4 @@
     </div>
 </body>
 </html>
+
