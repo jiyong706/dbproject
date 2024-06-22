@@ -8,39 +8,38 @@ $root = "C:\\Users\\pc\\Documents\\dbproject\\DB\\config.php";
 session_start();
 include_once $root;
 
-if (isset($_SERVER["REQUEST_METHOD"]) !== null) {
+if ($_SERVER['REQUEST_METHOD'] === "POST") { // Check if the request method is POST
     if (!empty($_POST['id'])) {
         $id = $_POST['id'];
 
         // 중복된 ID(이메일) 확인
-        $sql = "SELECT user_userid FROM user_table WHERE user_userid = ':s'";
+        $sql = "SELECT user_userid FROM user_table WHERE user_userid = :s";
         $stid = oci_parse($conn, $sql);
-        oci_bind_by_name($stid,':s', $id);
-        $result = oci_execute($conn, $sql);
+        oci_bind_by_name($stid, ':s', $id);
+        oci_execute($stid);
         $row = oci_fetch_array($stid);
 
-        if ($row != 0) {
+        if ($row != false) {
             $_SESSION['error'] = '아이디가 중복되었습니다.';
-            header("Location: signup_step1.php");
+            header("Location: signup1.php");
             exit();
         }
 
-        $_SESSION['id'] = $id;
-        header("Location: signup_step2.php"); // 중복되지 않은 경우 다음 단계로 진행
+        $_SESSION['user_id'] = $id;
+        header("Location: signup2.php"); // 중복되지 않은 경우 다음 단계로 진행
         
         oci_commit($conn);
-        oci_free_statement($stmt);
+        oci_free_statement($stid);
         oci_close($conn);
 
         exit();
     } else {
         $_SESSION['error'] = '아이디를 입력해주세요.';
-        header("Location: signup_step1.php");
+        header("Location: signup1.php");
         exit();
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>

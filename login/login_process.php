@@ -2,9 +2,6 @@
 // 파일 경로 설정 $root = "/Users/baggyeonghwan/dbproject/DB/user/data_select_user.php"; 
 // azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
 // 윈도우용 
-unset($_SESSION['error']);
-unset($_SESSION['name']);
-unset($_SESSION['userid']);
 
 $root = "C:\\Users\\pc\\Documents\\dbproject\\DB\\user\\data_select_user.php";
 
@@ -50,13 +47,11 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
             $name = $user_name;
             $db_password = "$user_pw";
 
-            $db_password = password_hash($db_password, PASSWORD_BCRYPT);
-
             // 비밀번호 검증
             if (password_verify($password, $db_password)) {
-                $_SESSION['userid'] = $db_userid;
-                $_SESSION['name'] = $name;
-                echo "<script>alert('$name 님 안녕하세요?'); window.location.href = '/index.php';</script>";
+                $_SESSION['user_id'] = $db_userid;
+                $_SESSION['user_name'] = $name;
+                echo "<script>alert('로그인 완료.'); window.location.href = '/index.php';</script>";
                 exit();
             } else {
                 error_log('잘못된 비밀번호입니다.');
