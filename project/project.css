@@ -1,86 +1,93 @@
-body, html {
+body {
+    background: url('path/to/your/background/image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Arial', sans-serif;
+    color: #333;
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 .header {
-    background-color: #333;
-    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header a {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    margin: 0 10px;
 }
 
-.header a:hover {
-    background-color: #ddd;
-    color: black;
+.header .logo {
+    font-size: 24px;
+    color: #333;
 }
 
 .header a.active {
-    background-color: #04AA6D;
-    color: white;
+    color: #ff6347;
 }
 
 .main {
-    background: url('/background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    height: 300px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     text-align: center;
+    margin-top: 50px;
 }
 
 .main h1 {
-    font-size: 50px;
-    margin-bottom: 20px;
+    font-size: 48px;
+    color: #333;
 }
 
 .main p {
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 24px;
+    color: #666;
 }
 
-.btn {
-    background-color: #04AA6D;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
+.main .btn {
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.main .btn:hover {
+    background-color: #ff4500;
 }
 
 .project_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 20px;
 }
 
 .project {
-    background: #f9f9f9;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
     padding: 20px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
+    margin: 20px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
 .project h2 {
-    margin: 0;
     font-size: 24px;
+    color: #333;
 }
 
 .project p {
-    margin: 5px 0;
+    font-size: 18px;
+    color: #666;
 }
+
