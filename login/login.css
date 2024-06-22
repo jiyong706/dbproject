@@ -55,11 +55,11 @@ body {
     display: flex;
     justify-content: space-between;
 }
-.form .link a {
+.form .link button {
     color: #333;
     font-size: 14px;
 }
-.form .link a:hover {
+.form .link button:hover {
     text-decoration: underline;
 }
 .form .field input[type="submit"] {
@@ -80,15 +80,15 @@ footer p {
     margin-bottom: 10px;
     font-size: 12px;
 }
-footer .social-links a {
+footer .social-links button {
     margin: 0 5px;
     color: #333;
     font-size: 20px;
 }
-footer .social-links a:hover {
+footer .social-links button:hover {
     color: #666;
 }
-footer a {
+footer button {
     color: #333;
     font-size: 12px;
 }

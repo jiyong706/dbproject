@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['userid'])) {
+    echo "<script>alert('로그인이 필요합니다.'); window.location.href = '/login/login.php';</script>";
+    exit();
+}
+
+echo "환영합니다, " . htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8') . "님!";
+?>
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,7 +21,7 @@
 <body>
     <?php
         session_start();
-        $is_logged_in = isset($_SESSION['username']);
+        $is_logged_in = isset($_SESSION['userid']);
     ?>
     <header>
         <div class="container">
@@ -26,7 +38,7 @@
                         <?php if ($is_logged_in): ?>
                             <a href="logout.php">로그아웃</a>
                         <?php else: ?>
-                            <a href="login.php">로그인</a>
+                            <a href="/login/login.php">로그인</a>
                         <?php endif; ?>
                     </li>
                 </ul>

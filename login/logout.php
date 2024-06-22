@@ -2,6 +2,6 @@
 session_start();
 session_unset();
 session_destroy();
-header("Location: /login/login.php");
+echo "<script>alert('로그아웃 되었습니다.'); window.location.href = '/index.php';</script>";
 exit();
 ?>

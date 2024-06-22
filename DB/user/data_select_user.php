@@ -1,5 +1,5 @@
 <?php
-    include_once "/Users/baggyeonghwan/dbproject/DB/config.php";
+    include_once "C:\Users\pc\Documents\dbproject\DB\config.php";
     $stid = oci_parse($conn, "SELECT * FROM user_table where user_userid = :d");
 
     oci_bind_by_name($stid, ":d", $_POST['id']);

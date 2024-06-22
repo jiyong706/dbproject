@@ -34,7 +34,7 @@
                     </div>
                     <div class="link">
                         <!-- <a href="find_info.php">회원정보 찾기</a>  -->
-                        <a href="/register/signup_step1.php">회원가입</a>
+                        <button onclick="window.location.href='/register/signup_step1.php'">회원가입</button>
                     </div>
                     <div class="field">
                         <input type="submit" value="로그인">

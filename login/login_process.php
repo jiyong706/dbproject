@@ -1,8 +1,8 @@
 <?php
-// 파일 경로 설정
-$root = "/Users/baggyeonghwan/dbproject/DB/user/data_select_user.php"; 
+// 파일 경로 설정 $root = "/Users/baggyeonghwan/dbproject/DB/user/data_select_user.php"; 
 // azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
-// 윈도우용 $root = "C:\\Users\\pc\\Documents\\GitHub\\dbproject\\DB\\config.php";
+// 윈도우용 
+$root = "C:\\Users\\pc\\Documents\\dbproject\\DB\\user\\data_select_user.php";
 
 include_once $root;
 
@@ -20,7 +20,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
             $e = oci_error($conn);
             error_log('쿼리 준비에 실패했습니다: ' . htmlspecialchars($e['message']));
             $_SESSION['error'] = '쿼리 준비에 실패했습니다.';
-            header("Location: /login/login.php");
+            echo "<script>alert('쿼리 준비에 실패했습니다.'); window.location.href = '/login/login.php';</script>";
             exit();
         }
 
@@ -33,7 +33,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
         if ($result === false) {
             $e = oci_error($stmt);
             error_log('쿼리 실행에 실패했습니다: ' . htmlspecialchars($e['message']));
-            $_SESSION['error'] = '쿼리 실행에 실패했습니다.';
+            echo "<script>alert('쿼리 실행에 실패했습니다.'); window.location.href = '/login/login.php';</script>";
             header("Location: /login/login.php");
             exit();
         }
@@ -52,18 +52,21 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
             if (password_verify($password, $db_password)) {
                 $_SESSION['userid'] = $db_userid;
                 $_SESSION['name'] = $name;
-                header("Location: /index.php");
+                $test1 = $_SESSION['userid'];
+                $test2 = $_SESSION['name'];
+                echo "<script>alert('$test1 $test2')</script>";
+                echo "<script>alert('$name 님 안녕하세요?'); window.location.href = '/index.php';</script>";
                 exit();
             } else {
                 error_log('잘못된 비밀번호입니다.');
                 $_SESSION['error'] = '잘못된 비밀번호입니다.';
-                header("Location: /login/login.php");
+                echo "<script>alert('잘못된 비밀번호입니다.'); window.location.href = '/login/login.php';</script>";
                 exit();
             }
         } else {
             error_log('존재하지 않는 아이디입니다.');
             $_SESSION['error'] = '존재하지 않는 아이디입니다.';
-            header("Location: /login/login.php");
+            echo "<script>alert('존재하지 않는 아이디입니다.'); window.location.href = '/login/login.php';</script>";
             exit();
         }
         
@@ -72,13 +75,13 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
     } else {
         error_log('아이디와 비밀번호를 입력해주세요.');
         $_SESSION['error'] = '아이디와 비밀번호를 입력해주세요.';
-        header("Location: /login/login.php");
+        echo "<script>alert('아이디와 비밀번호를 입력해주세요.'); window.location.href = '/login/login.php';</script>";
         exit();
     }
 } else {
     error_log('잘못된 요청입니다.');
     $_SESSION['error'] = '잘못된 요청입니다.';
-    header("Location: /login/login.php");
+    echo "<script>alert('잘못된 요청입니다.'); window.location.href = '/login/login.php';</script>";
     exit();
 }
 
