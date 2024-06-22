@@ -34,9 +34,11 @@ echo $_SESSION['user_id'];
                 <ul>
                     <li><a href="#">홈</a></li>
                     <li><a href="/project/project.php">프로젝트</a></li>
+                    <li><a href="/project/project.php">마이페이지</a></li>
                     <li>
                         <?php if ($is_logged_in): ?>
-                            <a href="logout.php">로그아웃</a>
+                            <a href="/login/logout.php">로그아웃</a>
+                            <a href="/mypage/mypage.php">마이페이지</a>
                         <?php else: ?>
                             <a href="/login/login.php">로그인</a>
                         <?php endif; ?>
