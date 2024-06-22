@@ -55,11 +55,11 @@ body {
     display: flex;
     justify-content: space-between;
 }
-.form .link button {
+.form .link a {
     color: #333;
     font-size: 14px;
 }
-.form .link button:hover {
+.form .link a:hover {
     text-decoration: underline;
 }
 .form .field input[type="submit"] {
@@ -72,23 +72,4 @@ body {
     border-radius: 5px;
     font-size: 16px;
     padding: 10px;
-}
-footer {
-    margin-top: 20px;
-}
-footer p {
-    margin-bottom: 10px;
-    font-size: 12px;
-}
-footer .social-links button {
-    margin: 0 5px;
-    color: #333;
-    font-size: 20px;
-}
-footer .social-links button:hover {
-    color: #666;
-}
-footer button {
-    color: #333;
-    font-size: 12px;
 }

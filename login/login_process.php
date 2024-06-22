@@ -2,6 +2,10 @@
 // 파일 경로 설정 $root = "/Users/baggyeonghwan/dbproject/DB/user/data_select_user.php"; 
 // azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
 // 윈도우용 
+unset($_SESSION['error']);
+unset($_SESSION['name']);
+unset($_SESSION['userid']);
+
 $root = "C:\\Users\\pc\\Documents\\dbproject\\DB\\user\\data_select_user.php";
 
 include_once $root;
@@ -52,9 +56,6 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
             if (password_verify($password, $db_password)) {
                 $_SESSION['userid'] = $db_userid;
                 $_SESSION['name'] = $name;
-                $test1 = $_SESSION['userid'];
-                $test2 = $_SESSION['name'];
-                echo "<script>alert('$test1 $test2')</script>";
                 echo "<script>alert('$name 님 안녕하세요?'); window.location.href = '/index.php';</script>";
                 exit();
             } else {
