@@ -1,0 +1,82 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.header .logo {
+    font-size: 24px;
+    color: #333;
+}
+
+.header a.active {
+    color: #ff6347;
+}
+
+.main {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.main h1 {
+    font-size: 48px;
+    color: #333;
+}
+
+.main p {
+    font-size: 24px;
+    color: #666;
+}
+
+.main .btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #28a745; /* Green color for emphasis */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.main .btn:hover {
+    background-color: #218838; /* Darker green for hover */
+}
+
+.panel_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.panel {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.panel h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.panel p {
+    font-size: 18px;
+    color: #666;
+}

@@ -23,7 +23,7 @@ session_start();
             </div>
             <nav class="selection">
                 <ul>
-                    <li><a href="#">홈</a></li>
+                    <li class="highlight"><a href="#">홈</a></li>
                     <li><a href="/project/project.php">프로젝트</a></li>
                     <li>
                         <?php if ($is_logged_in): ?>

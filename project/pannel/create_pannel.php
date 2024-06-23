@@ -10,9 +10,9 @@ include_once 'C:\\Users\\pc\\Documents\\dbproject\\DB\\config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pannel_name = $_POST['pannel_name'];
     $pannel_info = $_POST['pannel_info'];
-    $user_id = $_SESSION['user_nickname']; // assuming user_nickname is the user ID
+    $user_id = $_SESSION['user_id']; // assuming user_id is the user ID
 
-    $sql = "INSERT INTO pannel_table (pannel_name, pannel_info, user_id, pannel_createdate, pannel_update) 
+    $sql = "INSERT INTO pannel_table (pannel_name, pannel_info, user_id, pannel_createdate, pannel_updatedate) 
             VALUES (:pannel_name, :pannel_info, (SELECT user_id FROM user_table WHERE user_userid = :user_id), SYSDATE, SYSDATE)";
     $stid = oci_parse($conn, $sql);
     oci_bind_by_name($stid, ':pannel_name', $pannel_name);
@@ -23,7 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('패널이 생성되었습니다.'); location.replace('pannel_list.php');</script>";
     } else {
         $e = oci_error($stid);
-        echo "패널 생성 오류: " . $e['message'];
+        $_SESSION['error'] = "패널 생성 오류: " . $e['message'];
+        echo "<script>alert('패널 생성 오류! 다시 시도해주세요')<script>" . $e['message'];
     }
 
     oci_free_statement($stid);
@@ -32,12 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>패널 생성</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="create_pannel.css">
 </head>
 <body>
     <div class="container">
@@ -58,5 +59,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 </html>
-
-</body>

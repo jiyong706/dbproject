@@ -17,6 +17,7 @@
         <a href="/index.php" class="logo">패널</a>
         <a href="/index.php">홈</a>
         <a href="/project/project.php" class="active">프로젝트</a>
+        <a href="/project/pannel/pannel_list.php" >패널</a>
         <?php if ($is_logged_in): ?>
             <a href="/login/logout.php">로그아웃</a>
             <a href="/mypage/mypage.php">마이페이지</a>
@@ -26,7 +27,7 @@
     </div>
     <div class="main">
         <h1>프로젝트</h1>
-        <p>다양한 프로젝트와 새로운 기회를 발견하세요.</p>
+        <p>다양한 프로젝트를 만들어 보고 관리해보세요!</p>
         <a href="/project/create_project.php" class="btn">프로젝트 생성</a>
     </div>
     <div class="project_list">
@@ -37,7 +38,7 @@
             // 윈도우용 $root = "C:\\Users\\pc\\Documents\\GitHub\\dbproject\\DB\\config.php";
 
             include_once $root;
-            
+
             if (!isset($_SESSION['user_id'])) {
                 echo "<script>alert('로그인 해주세요');</script>";
                 header("Location: /login/login.php");
