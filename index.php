@@ -1,15 +1,6 @@
 <?php
 session_start();
 
-echo $_SESSION['user_name'];
-echo $_SESSION['user_id'];
-
-// if (!isset($_SESSION['user_id'])) {
-//     echo "<script>alert('로그인이 필요합니다.'); window.location.href = '/login/login.php';</script>";
-//     exit();
-// }
-
-// echo "환영합니다, " . htmlspecialchars($_SESSION['user_name'], ENT_QUOTES, 'UTF-8') . "님!";
 ?>
 
 
@@ -23,7 +14,7 @@ echo $_SESSION['user_id'];
 </head>
 <body>
     <?php
-        $is_logged_in = isset($_SESSION['userid']);
+        $is_logged_in = isset($_SESSION['user_id']);
     ?>
     <header>
         <div class="container">
