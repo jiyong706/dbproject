@@ -4,9 +4,12 @@
 // 윈도우용 
 
 $root = "C:\\Users\\pc\\Documents\\dbproject\\DB\\user\\data_select_user.php";
-
-include_once $root;
-
+if(!include_once $root){
+    $_SESSION['error'] = '필요한 파일을 불러오지 못했습니다.';
+    echo "<script>alert('필요한 파일을 불러오지 못했습니다.'); window.location.href = '/login/login.php';</script>";
+} else {
+    include_once $root;
+}
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
     if (!empty($_POST['id']) && !empty($_POST['pw'])) {
         $id = $_POST['id'];
