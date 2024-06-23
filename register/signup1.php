@@ -6,7 +6,15 @@ $root = "C:\\Users\\pc\\Documents\\dbproject\\DB\\config.php";
 // 기타 OS $root = "여기에 절대 경로 입력";
 
 session_start();
-include_once $root;
+
+// 오류처리 코드
+if(!include_once $root){
+    $_SESSION['error'] = '필요한 파일을 불러오지 못했습니다.';
+    echo "<script>alert('필요한 파일을 불러오지 못했습니다.'); window.location.href = '/login/login.php';</script>";
+} else {
+    include_once $root;
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") { // Check if the request method is POST
     if (!empty($_POST['id'])) {
