@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "/Users/baggyeonghwan/dbproject/DB/config.php";
+include_once "../user/config.php";
 
 $user_id = $_SESSION['user_id'];
 
