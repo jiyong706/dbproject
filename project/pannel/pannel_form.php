@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>패널 양식</title>
+    <title>패널 생성</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,7 +14,8 @@
         <a href="/login/login.php">로그인</a>
     </div>
     <div class="main">
-        <h1>패널 양식</h1>
+        <h1>패널 생성</h1>
+        <p>새로운 패널을 생성하세요.</p>
         <form action="submit.php" method="post">
             <label for="pannel_name">패널 이름:</label>
             <input type="text" id="pannel_name" name="pannel_name" required>
@@ -27,3 +28,4 @@
     </div>
 </body>
 </html>
+
