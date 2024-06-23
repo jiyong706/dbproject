@@ -1,5 +1,5 @@
 <?php
-include_once "/Users/baggyeonghwan/dbproject/DB/config.php";
+include_once "../user/config.php";
 
 $user_id = $_POST['user_id'];
 
