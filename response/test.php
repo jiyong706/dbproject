@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
-    
-?>
-=======
+  
 session_start();
 include_once "../user/config.php";
 
@@ -80,10 +77,3 @@ while ($row_responses = oci_fetch_assoc($stid_responses)) {
 oci_free_statement($stid_responses);
 oci_close($conn);
 ?>
-
-// OCI statement 해제
-oci_free_statement($stid_responses);
-// 데이터베이스 연결 닫기
-oci_close($conn);
-?>
->>>>>>> origin/main
