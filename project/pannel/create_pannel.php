@@ -17,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_SESSION['user_id']; // 세션에서 사용자 ID 가져오기
 
     // SQL 쿼리 작성 (파라미터화된 방식으로)
-    $sql = "INSERT INTO pannel (pannel_ID, project_ID, pannel_name, pannel_standard, pannel_info, pannel_createdate, pannel_updatedate) 
-            VALUES (pannel_seq.NEXTVAL, (SELECT project_ID FROM project WHERE user_ID = :user_id), :pannel_name, '기준', :pannel_info, SYSDATE, SYSDATE)";
+    $sql = "INSERT INTO pannel_table (pannel_ID, project_ID, pannel_name, pannel_standard, pannel_info, pannel_createdate, pannel_updatedate) 
+            VALUES (pannel_seq.NEXTVAL, (SELECT project_ID FROM project_table WHERE user_ID = (select user_id from user_table where user_userid = :user_id)), :pannel_name, '기준', :pannel_info, SYSDATE, SYSDATE)";
     
     // OCI 문장 준비
     $stid = oci_parse($conn, $sql);

@@ -136,11 +136,11 @@
 </head>
 <body>
     <div class="header">
-        <div class="logo">로고</div>
+        <div class="logo">패널</div>
         <nav>
-            <a href="index.php">홈</a>
-            <a href="projects.php" class="active">프로젝트</a>
-            <a href="logout.php">로그아웃</a>
+            <a href="/index.php">홈</a>
+            <a href="/project/project.php" class="active">프로젝트</a>
+            <a href="/login/logout.php">로그아웃</a>
         </nav>
     </div>
     <div class="container">
