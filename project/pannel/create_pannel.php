@@ -1,11 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_nickname'])) {
-    echo "<script>alert('로그인해주세요'); location.replace('../login/login.php');</script>";
+if (!isset($_SESSION['user_id'])) {
+    echo "<script>alert('로그인해주세요'); location.replace('/login/login.php');</script>";
     exit();
 }
 
-include_once '../user/config.php';
+include_once 'C:\\Users\\pc\\Documents\\dbproject\\DB\\config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pannel_name = $_POST['pannel_name'];

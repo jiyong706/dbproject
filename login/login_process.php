@@ -71,8 +71,10 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
                     echo "<script>alert('업데이트 쿼리 실행에 실패했습니다.'); window.location.href = '/login/login.php';</script>";
                     exit();
                 }
+                session_start();
                 $_SESSION['user_id'] = $db_userid;
                 $_SESSION['user_name'] = $name;
+
                 echo "<script>alert('로그인 완료.'); window.location.href = '/index.php';</script>";
                 exit();
             } else {

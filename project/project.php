@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,13 +10,19 @@
     <link rel="stylesheet" href="project.css">
 </head>
 <body>
+    <?php
+        $is_logged_in = isset($_SESSION['user_id']);
+    ?>
     <div class="header">
         <a href="/index.php" class="logo">패널</a>
         <a href="/index.php">홈</a>
         <a href="/project/project.php" class="active">프로젝트</a>
-        <a href="/service.php">서비스</a>
-        <a href="/contact.php">연락처</a>
-        <a href="/login/login.php">로그인</a>
+        <?php if ($is_logged_in): ?>
+            <a href="/login/logout.php">로그아웃</a>
+            <a href="/mypage/mypage.php">마이페이지</a>
+        <?php else: ?>
+            <a href="/login/login.php">로그인</a>
+        <?php endif; ?>
     </div>
     <div class="main">
         <h1>프로젝트</h1>
@@ -28,17 +37,16 @@
             // 윈도우용 $root = "C:\\Users\\pc\\Documents\\GitHub\\dbproject\\DB\\config.php";
 
             include_once $root;
-
-            session_start();
-            if (!isset($_SESSION['id'])) {
+            
+            if (!isset($_SESSION['user_id'])) {
                 echo "<script>alert('로그인 해주세요');</script>";
                 header("Location: /login/login.php");
                 exit;
             }
 
-            $id = $_SESSION['id'];
+            $id = $_SESSION['user_id'];
             if ($conn) {
-                $sql = "SELECT project_id, project_name, project_info, project_createdate, project_updatedate FROM project_table WHERE user_id = (SELECT user_id FROM user_table WHERE id = :id)";
+                $sql = "SELECT project_id, project_name, project_info, project_createdate, project_update FROM project_table WHERE user_id = (SELECT user_id FROM user_table WHERE user_userid = :id)";
                 $stid = oci_parse($conn, $sql);
                 oci_bind_by_name($stid, ":id", $id);
                 oci_execute($stid);
@@ -48,7 +56,7 @@
                     echo "<h2>" . htmlspecialchars($row['PROJECT_NAME'], ENT_QUOTES, 'UTF-8') . "</h2>";
                     echo "<p>" . htmlspecialchars($row['PROJECT_INFO'], ENT_QUOTES, 'UTF-8') . "</p>";
                     echo "<p>생성일: " . htmlspecialchars($row['PROJECT_CREATEDATE'], ENT_QUOTES, 'UTF-8') . "</p>";
-                    echo "<p>업데이트: " . htmlspecialchars($row['PROJECT_UPDATEDATE'], ENT_QUOTES, 'UTF-8') . "</p>";
+                    echo "<p>업데이트: " . htmlspecialchars($row['PROJECT_UPDATE'], ENT_QUOTES, 'UTF-8') . "</p>";
                     echo "</div>";
                 }
 
