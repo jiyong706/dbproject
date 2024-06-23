@@ -1,32 +1,43 @@
 <?php
 session_start();
+
+// 세션이 없을 경우 로그인 페이지로 리다이렉트
 if (!isset($_SESSION['user_id'])) {
     echo "<script>alert('로그인해주세요'); location.replace('/login/login.php');</script>";
     exit();
 }
 
+// 데이터베이스 연결 설정 파일 포함
 include_once 'C:\\Users\\pc\\Documents\\dbproject\\DB\\config.php';
 
+// POST 요청 처리
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pannel_name = $_POST['pannel_name'];
     $pannel_info = $_POST['pannel_info'];
-    $user_id = $_SESSION['user_id']; // assuming user_id is the user ID
+    $user_id = $_SESSION['user_id']; // 세션에서 사용자 ID 가져오기
 
-    $sql = "INSERT INTO pannel_table (pannel_name, pannel_info, user_id, pannel_createdate, pannel_updatedate) 
-            VALUES (:pannel_name, :pannel_info, (SELECT user_id FROM user_table WHERE user_userid = :user_id), SYSDATE, SYSDATE)";
+    // SQL 쿼리 작성 (파라미터화된 방식으로)
+    $sql = "INSERT INTO pannel (pannel_ID, project_ID, pannel_name, pannel_standard, pannel_info, pannel_createdate, pannel_updatedate) 
+            VALUES (pannel_seq.NEXTVAL, (SELECT project_ID FROM project WHERE user_ID = :user_id), :pannel_name, '기준', :pannel_info, SYSDATE, SYSDATE)";
+    
+    // OCI 문장 준비
     $stid = oci_parse($conn, $sql);
+    
+    // 바인딩
+    oci_bind_by_name($stid, ':user_id', $user_id);
     oci_bind_by_name($stid, ':pannel_name', $pannel_name);
     oci_bind_by_name($stid, ':pannel_info', $pannel_info);
-    oci_bind_by_name($stid, ':user_id', $user_id);
 
+    // 실행
     if (oci_execute($stid)) {
         echo "<script>alert('패널이 생성되었습니다.'); location.replace('pannel_list.php');</script>";
     } else {
         $e = oci_error($stid);
         $_SESSION['error'] = "패널 생성 오류: " . $e['message'];
-        echo "<script>alert('패널 생성 오류! 다시 시도해주세요')<script>" . $e['message'];
+        echo "<script>alert('패널 생성 오류! 다시 시도해주세요'); location.replace('create_pannel.php');</script>";
     }
 
+    // OCI 문장 해제 및 연결 닫기
     oci_free_statement($stid);
     oci_close($conn);
 }

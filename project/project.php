@@ -29,6 +29,7 @@
         <h1>프로젝트</h1>
         <p>다양한 프로젝트를 만들어 보고 관리해보세요!</p>
         <a href="/project/create_project.php" class="btn">프로젝트 생성</a>
+        <a href="/project/project_list.php" class="btn">프로젝트 목록</a>
     </div>
     <div class="project_list">
         <?php

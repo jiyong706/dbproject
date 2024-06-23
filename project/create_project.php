@@ -1,10 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    echo "<script>alert('로그인해주세요'); location.replace('login.php');</script>";
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,13 +5,149 @@ if (!isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로젝트 만들기</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: url('이미지') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-header h1 {
+            font-size: 36px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        .header .logo {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .header a.active {
+            color: #ff6347;
+        }
+
+        .main {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .main h1 {
+            font-size: 48px;
+            color: #333;
+        }
+
+        .main p {
+            font-size: 24px;
+            color: #666;
+        }
+
+        .main .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .main .btn:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
+    <div class="header">
+        <div class="logo">로고</div>
+        <nav>
+            <a href="index.php">홈</a>
+            <a href="projects.php" class="active">프로젝트</a>
+            <a href="logout.php">로그아웃</a>
+        </nav>
+    </div>
     <div class="container">
         <div class="form-header">
             <h1>프로젝트 만들기</h1>
         </div>
-        <form method="post" action="create_project.php">
+        <form method="post" action="">
             <div class="form-group">
                 <label for="project_name">프로젝트 이름:</label>
                 <input type="text" id="project_name" name="project_name" required>
@@ -32,16 +161,3 @@ if (!isset($_SESSION['username'])) {
     </div>
 </body>
 </html>
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $project_name = $_POST['project_name'];
-    $project_password = $_POST['project_password'];
-
-    // 데이터베이스에 프로젝트를 추가하는 로직을 추가하세요.
-    // 예시:
-    // addProject($project_name, $project_password, $_SESSION['username']);
-
-    header("Location: project_status.php");
-    exit();
-}
-?>
