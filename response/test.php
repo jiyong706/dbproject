@@ -1,5 +1,5 @@
 <?php
-    include_once "/Users/baggyeonghwan/dbproject/DB/config.php";
+    include_once "../user/config.php";
 
     $stid = oci_parse($conn, "SELECT * FROM response_table");
     oci_execute($stid);
