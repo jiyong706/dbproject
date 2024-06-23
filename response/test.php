@@ -1,91 +1,84 @@
 <?php
-    include_once "../user/config.php";
+session_start();
+include_once "../user/config.php";
 
-    $stid = oci_parse($conn, "SELECT * FROM response_table");
-    oci_execute($stid);
+$user_id = $_SESSION['user_id'];
+
+$question_id = $_POST['question_id'];
+
+$conn = oci_connect(DB_USERNAME, DB_PASSWORD, DB_CONNECTION_STRING);
+if (!$conn) {
+    $error_message = oci_error();
+    die("데이터베이스 연결 실패: " . $error_message['message']);
+}
+
+$sql_user_response = "SELECT resp_text
+                     FROM response_table
+                     WHERE user_id = :user_id AND question_id = :question_id";
+
+$stid_user_response = oci_parse($conn, $sql_user_response);
+oci_bind_by_name($stid_user_response, ":user_id", $user_id);
+oci_bind_by_name($stid_user_response, ":question_id", $question_id);
+
+$result_user_response = oci_execute($stid_user_response);
+if (!$result_user_response) {
+    $error_message = oci_error($stid_user_response);
+    die("사용자 응답 조회 실패: " . $error_message['message']);
+}
+
+$user_response = "";
+
+if ($row_user_response = oci_fetch_assoc($stid_user_response)) {
+    $user_response = $row_user_response['RESP_TEXT'];
+}
+
+oci_free_statement($stid_user_response);
+
+$sql_responses = "SELECT resp_text, COUNT(*) AS num_responses
+                 FROM response_table
+                 WHERE question_id = :question_id
+                 GROUP BY resp_text";
+
+$stid_responses = oci_parse($conn, $sql_responses);
+oci_bind_by_name($stid_responses, ":question_id", $question_id);
+
+$result_responses = oci_execute($stid_responses);
+if (!$result_responses) {
+    $error_message = oci_error($stid_responses);
+    die("응답 선택 비율 조회 실패: " . $error_message['message']);
+}
+
+echo "<h2>질문 ID: $question_id</h2>";
+
+echo "<h3>나의 응답:</h3>";
+if (!empty($user_response)) {
+    echo "<p>$user_response</p>";
+} else {
+    echo "<p>아직 해당 질문에 대한 응답이 없습니다.</p>";
+}
+
+echo "<h3>참여자의 응답 선택 비율:</h3>";
+$total_responses = 0;
+
+while ($row_responses = oci_fetch_assoc($stid_responses)) {
+    $resp_text = $row_responses['RESP_TEXT'];
+    $num_responses = $row_responses['NUM_RESPONSES'];
+
+    $total_responses += $num_responses;
+
+    $selection_ratio = ($num_responses / $total_responses) * 100;
+
+  
+    echo "<p>$resp_text: $num_responses 개 ($selection_ratio%)</p>";
+}
+
+
+oci_free_statement($stid_responses);
+oci_close($conn);
 ?>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>응답 페이지</title>
-    <link rel="stylesheet" href="styles.css"> <!-- styles.css 파일을 맞춰서 설정 -->
-    <style>
-        body {
-            background: url('이미지') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Arial', sans-serif;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-    
-    </style>
-</head>
-<body>
-    <div class="header">
-        <a href="/index.php" class="logo">패널</a>
-        <a href="/index.php">홈</a>
-        <a href="/project/project.php">프로젝트</a>
-        <a href="/service.php">서비스</a>
-        <a href="/contact.php">연락처</a>
-        <a href="/login/login.php">로그인</a>
-    </div>
-
-    <div class="main">
-        <div class="container">
-            <div class="form-header">
-                <h1>응답 내역</h1>
-            </div>
-
-            <?php
-            while (($row = oci_fetch_assoc($stid)) != false) {
-                echo "<div class='form-group'>";
-                echo "<label>응답 ID: </label>";
-                echo "<p>" . htmlspecialchars($row['RESP_ID'], ENT_QUOTES, 'UTF-8') . "</p>";
-                echo "</div>";
-
-                echo "<div class='form-group'>";
-                echo "<label>사용자 ID: </label>";
-                echo "<p>" . htmlspecialchars($row['USER_ID'], ENT_QUOTES, 'UTF-8') . "</p>";
-                echo "</div>";
-
-                echo "<div class='form-group'>";
-                echo "<label>질문 ID: </label>";
-                echo "<p>" . htmlspecialchars($row['QUESTION_ID'], ENT_QUOTES, 'UTF-8') . "</p>";
-                echo "</div>";
-
-                echo "<div class='form-group'>";
-                echo "<label>응답 내용: </label>";
-                echo "<p>" . htmlspecialchars($row['RESP_TEXT'], ENT_QUOTES, 'UTF-8') . "</p>";
-                echo "</div>";
-
-                echo "<div class='form-group'>";
-                echo "<label>응답 일자: </label>";
-                echo "<p>" . htmlspecialchars($row['RESP_DATE'], ENT_QUOTES, 'UTF-8') . "</p>";
-                echo "</div>";
-
-                echo "<hr>";
-            }
-            ?>
-
-        </div>
-    </div>
-</body>
-</html>
-
-<?php
-    oci_close($conn);
+// OCI statement 해제
+oci_free_statement($stid_responses);
+// 데이터베이스 연결 닫기
+oci_close($conn);
 ?>
-
