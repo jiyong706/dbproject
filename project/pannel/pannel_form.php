@@ -1,45 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>설문지</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>패널 양식</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="survey-container">
-        <div class="survey-header">
-            <h1>이지패널 설문지</h1>
-            <hr>
-        <!--여기서부터 php 활용-->
-            <?php
-             
-            ?>
-    
-            <p>설문지 설명</p>
-        </div>
-        <form method="post" action="submit.php">
-            <div class="question-container">
-                <div class="question-header">
-                    <input type="text" name="question_title" placeholder="제목없는 질문">
-                    <select name="question_type">
-                        <option value="multiple_choice">객관식 질문</option>
-                        <option value="multiple_choice">주관식 질문</option>
-                        <!-- 다른 질문 유형을 추가할 수 있습니다 -->
-                    </select>
-                </div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="option" disabled>
-                        <input type="text" name="option_text[]" placeholder="옵션 1">
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="option" disabled>
-                        <input type="text" name="option_text[]" placeholder="옵션 추가 또는 '기타' 추가">
-                    </div>
-                </div>
-            </div>
-            <button type="submit">제출</button>
+    <div class="header">
+        <a href="/index.php" class="logo">패널</a>
+        <a href="/index.php">홈</a>
+        <a href="/project/project.php">프로젝트</a>
+        <a href="/login/login.php">로그인</a>
+    </div>
+    <div class="main">
+        <h1>패널 양식</h1>
+        <form action="submit.php" method="post">
+            <label for="pannel_name">패널 이름:</label>
+            <input type="text" id="pannel_name" name="pannel_name" required>
+            <label for="pannel_standard">기준:</label>
+            <input type="text" id="pannel_standard" name="pannel_standard" required>
+            <label for="pannel_info">정보:</label>
+            <textarea id="pannel_info" name="pannel_info" required></textarea>
+            <button type="submit" class="btn">패널 생성</button>
         </form>
     </div>
 </body>
