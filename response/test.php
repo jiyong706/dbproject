@@ -1,5 +1,4 @@
 <?php
-  
 session_start();
 include_once "../user/config.php";
 
@@ -69,10 +68,8 @@ while ($row_responses = oci_fetch_assoc($stid_responses)) {
 
     $selection_ratio = ($num_responses / $total_responses) * 100;
 
-  
     echo "<p>$resp_text: $num_responses 개 ($selection_ratio%)</p>";
 }
-
 
 oci_free_statement($stid_responses);
 oci_close($conn);
