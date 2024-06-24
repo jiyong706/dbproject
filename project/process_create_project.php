@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'C:/Users/pc/Documents/dbproject/DB/config.php';
+include 'C:\\Users\\pc\\Documents\\dbproject\\DB\\config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $project_name = $_POST['project_name'];
