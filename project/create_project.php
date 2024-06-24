@@ -147,7 +147,7 @@
         <div class="form-header">
             <h1>프로젝트 만들기</h1>
         </div>
-        <form method="post" action="/project/process_create_project.php">
+        <form method="post" action="">
             <div class="form-group">
                 <label for="project_name">프로젝트 이름:</label>
                 <input type="text" id="project_name" name="project_name" required>
