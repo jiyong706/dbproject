@@ -33,7 +33,7 @@
     <div class="panel_list">
         <?php
             // 파일 경로 설정
-            $root = "C:\\Users\\pc\\Documents\\dbproject\\DB\\config.php"; 
+            $root = "C:/Users/pc/Documents/dbproject/DB/config.php"; 
 
             include_once $root;
 

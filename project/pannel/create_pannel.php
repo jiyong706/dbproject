@@ -23,10 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // OCI 문장 준비
     $stid = oci_parse($conn, $sql);
     
+    if($pannel_id == null){
+        echo "<script>alert('프로젝트를 찾을수 없습니다. 프로젝트를 먼저 만드신 다음 생성해주세요'); window.location.href = '/project/project.php'</script>";
+        exit();
+    }
+
     // 바인딩
-    oci_bind_by_name($stid, ':user_id', $user_id);
-    oci_bind_by_name($stid, ':pannel_name', $pannel_name);
-    oci_bind_by_name($stid, ':pannel_info', $pannel_info);
+    oci_bind_by_name($stid, ":user_id", $user_id);
+    oci_bind_by_name($stid, ":pannel_name", $pannel_name);
+    oci_bind_by_name($stid, ":pannel_info", $pannel_info);
 
     // 실행
     if (oci_execute($stid)) {

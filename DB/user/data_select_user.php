@@ -18,6 +18,7 @@
         $user_name = oci_result($stid, 'USER_NAME');
         $user_userid = oci_result($stid, 'USER_USERID');
         $user_pw = oci_result($stid, 'USER_PW');
+        $user_lastlogin = oci_result($stid, 'USER_LASTLOGIN');
     }
     
     oci_close($conn);
