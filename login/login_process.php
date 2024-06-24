@@ -3,7 +3,7 @@
 // azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
 // 윈도우용 
 
-$root = "C:\\Users\\pc\\Documents\\dbproject\\DB\\user\\data_select_user.php";
+$root = "C:\\Users\\313\\Documents\\GitHub\\dbproject\\DB\\user\\data_select_user.php";
 if(!include_once $root){
     $_SESSION['error'] = '필요한 파일을 불러오지 못했습니다.';
     echo "<script>alert('필요한 파일을 불러오지 못했습니다.'); window.location.href = '/login/login.php';</script>";
