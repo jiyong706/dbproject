@@ -7,15 +7,14 @@
     <link rel="stylesheet" href="/login/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script>
-        // window.onload = function() {
-        //     <php
-        //     session_start();
-        //     if (isset($_SESSION['error'])) {
-        //         echo 'alert("' . $_SESSION['error'] . '");';
-        //         unset($_SESSION['error']);
-        //     }
-        //     ?>
-        // };
+        window.onload = function() {
+            <?php
+            if (isset($_SESSION['error'])) {
+                echo 'alert("' . $_SESSION['error'] . '");';
+                unset($_SESSION['error']);
+            }
+            ?>
+        };
     </script>
 </head>
 <body>
@@ -24,7 +23,7 @@
             <div class="form">
                 <header>Pannel</header>
                 <p>로그인 하여 패널서비스를 이용하세요!</p>
-                <form action="login_process.php" method="POST">
+                <form action="login_process.php" method="post">
                     <div class="field">
                         <input type="text" name="id" placeholder="id" required>
                     </div>
@@ -33,8 +32,7 @@
                         <i class="fas fa-eye"></i>
                     </div>
                     <div class="link">
-                        <!-- <a href="find_info.php">회원정보 찾기</a>  -->
-                        <a href="/register/signup_step1.php">회원가입</a>
+                        <a href='/register/signup_step1.php'>회원가입</a>
                     </div>
                     <div class="field">
                         <input type="submit" value="로그인">

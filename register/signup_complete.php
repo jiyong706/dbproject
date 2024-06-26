@@ -10,10 +10,11 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_SESSION['id']) && isset($_SESSION['password']) && !empty($_POST['last_name']) && !empty($_POST['first_name']) && !empty($_POST['birthdate'])) {
         $id = $_SESSION['id'];
-        $password = $_SESSION['password'];
-        $last_name = $_POST['last_name'];
-        $first_name = $_POST['first_name'];
-        $birthdate = $_POST['birthdate'];
+        $user_pass = $_SESSION['user_pass'];
+        $user_email = $_POST['email'];
+        $user_name = $_POST['name'];
+        $user_old= $_POST['old'];
+        $user_sex = $_POST['gender'];
 
         // 사용자를 데이터베이스에 삽입
         $insert_sql = "INSERT INTO users (id, password, last_name, first_name, birthdate) VALUES (?, ?, ?, ?, ?)";

@@ -8,7 +8,7 @@ $root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php";
 include_once "$root";
 session_start();
 // @ : 무시
-if (@$_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['user_name']) && !empty($_POST['user_old'])) {
         $id = $_SESSION['id'];
         $password = $_SESSION['password'];

@@ -18,12 +18,13 @@ if (!isset($_SESSION['username'])) {
         <div class="form-header">
             <h1>패널 생성</h1>
         </div>
-        <form method="post" action="create_panel.php">
+        <form method="post" action="/project/pannel/create_pannel.php">
             <div class="form-group">
                 <label for="panel_name">패널 이름:</label>
                 <input type="text" id="panel_name" name="panel_name" required>
             </div>
             <button type="submit">패널 생성</button>
         </form>
+        
     </div>
 </body>

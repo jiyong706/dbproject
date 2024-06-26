@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
+if (isset($_SESSION['USER_NAME'])) {
     echo "<script>alert('로그인해주세요'); location.replace('/login/login.php');</script>";
     exit();
 }
@@ -19,7 +19,7 @@ if (!isset($_SESSION['username'])) {
             <h1>패널 목록</h1>
         </div>
         <!-- 패널 목록을 출력하는 로직을 추가하세요 -->
-        <button onclick="location.href='create_panel.php'">패널 생성</button>
+        <button onclick="location.href='/project/pannel/create_panel.php'">패널 생성</button>
     </div>
 </body>
 </html>
