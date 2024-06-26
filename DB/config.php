@@ -1,7 +1,7 @@
 <?php
-    $host = "dsapoi881.duckdns.org:1522/xe";
-    $user = 'c##test';
-    $pw = '00000000';
+    $host = "azza.gwangju.ac.kr/orcl";
+    $user = 'dbuser201692';
+    $pw = 'ce1234';
 
     // 데이터베이스 연결 체크
     $conn = oci_connect($user, $pw, $host);

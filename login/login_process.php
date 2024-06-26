@@ -1,10 +1,8 @@
 <?php
-// 파일 경로 설정
-$root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php"; 
+// 파일 경로 설정 $root = "/Users/baggyeonghwan/Desktop/dbproject/DB/config.php"; 
 // azza 서버용 $root = "/home/2020/ce201692/public_html/project_pannel/DB/config.php";
-// 윈도우용 $root = "C:\\Users\\pc\\Documents\\GitHub\\dbproject\\DB\\config.php";
-
-include_once $root;
+// 윈도우용
+include_once "C:/Users/pc/Documents/GitHub/dbproject/DB/config.php";
 
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
     if (!empty($_POST['id']) && !empty($_POST['pw'])) {
@@ -39,13 +37,14 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
         }
 
         // 결과 가져오기
-        $row = oci_fetch_array($stmt, OCI_ASSOC+OCI_RETURN_NULLS);
+        $row = oci_fetch_row($stmt);
 
         if ($row != false) {
             $db_id = $row['USER_USERID'];
             $name = $row['USER_NAME'];
             $db_password = $row['USER_PW'];
 
+            header("Location: index.php");
             // 비밀번호 검증
             if (password_verify($password, $db_password)) {
                 $_SESSION['id'] = $db_id;
